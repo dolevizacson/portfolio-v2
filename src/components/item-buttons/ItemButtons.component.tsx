@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { AnimatePresence } from 'framer-motion';
 
+import DeleteButton from '../delete-button/DeleteButton.component';
+
 import * as style from './style/item-buttons.style';
 
 type ItemButtonsProps = {
@@ -20,9 +22,15 @@ const ItemButtons = ({
 }: ItemButtonsProps): JSX.Element => {
   return (
     <style.ItemButtons>
-      <style.Button onClick={() => item && deleteFunction(item._id)}>
-        {name ? `delete ${name}` : 'delete'}
-      </style.Button>
+      {item && (
+        <DeleteButton
+          deleteFunction={deleteFunction}
+          deleteItem={item._id}
+          modalButtonText={name ? `delete ${name}` : 'delete'}
+        >
+          <style.Button>{name ? `delete ${name}` : 'delete'}</style.Button>
+        </DeleteButton>
+      )}
       <style.Button onClick={() => item && toggleFunction(item._id)}>
         toggle{' '}
         <AnimatePresence initial={false} exitBeforeEnter>
